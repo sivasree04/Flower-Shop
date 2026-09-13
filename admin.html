@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0f0e17" />
+  <title>Admin – பூமாலர் மொத்த விற்பனை</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="admin-brand">
+      <span class="admin-brand-icon">🌸</span>
+      <div>
+        <div class="admin-brand-name">பூமாலர்</div>
+        <div class="admin-brand-sub">Admin Dashboard</div>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-panel="dashboard">
+        <span class="anav-icon">📊</span><span>Dashboard</span>
+      </button>
+      <button class="admin-nav-item" data-panel="orders">
+        <span class="anav-icon">📦</span>
+        <span>ஆர்டர்கள்</span>
+        <span class="anav-badge" id="sidebar-order-count">0</span>
+      </button>
+      <button class="admin-nav-item" data-panel="flowers">
+        <span class="anav-icon">🌸</span><span>பூக்கள்</span>
+      </button>
+      <button class="admin-nav-item" data-panel="bouquets">
+        <span class="anav-icon">💐</span><span>பூங்கொத்து</span>
+      </button>
+      <button class="admin-nav-item" data-panel="wedding">
+        <span class="anav-icon">💒</span><span>திருமண சேவை</span>
+      </button>
+      <button class="admin-nav-item" data-panel="custom">
+        <span class="anav-icon">✨</span><span>தனிப்பயன்</span>
+      </button>
+      <button class="admin-nav-item" data-panel="settings">
+        <span class="anav-icon">⚙️</span><span>Settings</span>
+      </button>
+    </nav>
+
+    <div class="admin-sidebar-footer">
+      <a href="index.html" class="admin-back-link">← கடைக்கு திரும்பு</a>
+    </div>
+  </aside>
+
+  <!-- ── MOBILE TOP BAR ── -->
+  <div class="admin-topbar">
+    <button class="admin-menu-btn" id="admin-menu-btn">☰</button>
+    <div class="admin-topbar-title" id="admin-topbar-title">Dashboard</div>
+    <a href="index.html" class="admin-topbar-back">← கடை</a>
+  </div>
+
+  <!-- ── SIDEBAR OVERLAY (mobile) ── -->
+  <div class="admin-overlay hidden" id="admin-overlay"></div>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="admin-main" id="admin-main">
+
+    <!-- ════════ DASHBOARD PANEL ════════ -->
+    <div id="panel-dashboard" class="admin-panel active-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Dashboard</h1>
+        <span class="panel-date" id="dashboard-date"></span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(255,107,107,0.15);color:var(--a-primary)">📦</div>
+          <div class="stat-body">
+            <div class="stat-val" id="stat-total-orders">0</div>
+            <div class="stat-label">மொத்த ஆர்டர்கள்</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(107,203,119,0.15);color:#6bcb77">✅</div>
+          <div class="stat-body">
+            <div class="stat-val" id="stat-active-orders">0</div>
+            <div class="stat-label">செயலில் உள்ளவை</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(255,217,61,0.15);color:#ffd93d">💰</div>
+          <div class="stat-body">
+            <div class="stat-val" id="stat-revenue">₹0</div>
+            <div class="stat-label">மொத்த வருவாய்</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(167,139,250,0.15);color:#a78bfa">✨</div>
+          <div class="stat-body">
+            <div class="stat-val" id="stat-custom-requests">0</div>
+            <div class="stat-label">தனிப்பயன் கோரிக்கை</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2 class="section-card-title">சமீபத்திய ஆர்டர்கள்</h2>
+          <button class="link-btn" data-panel="orders">அனைத்தும் →</button>
+        </div>
+        <div id="recent-orders-list"></div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2 class="section-card-title">விரைவு செயல்கள்</h2>
+        </div>
+        <div class="quick-actions">
+          <button class="qa-btn" data-panel="flowers">
+            <span>🌸</span><span>பூ சேர்</span>
+          </button>
+          <button class="qa-btn" data-panel="bouquets">
+            <span>💐</span><span>பூங்கொத்து சேர்</span>
+          </button>
+          <button class="qa-btn" data-panel="wedding">
+            <span>💒</span><span>சேவை சேர்</span>
+          </button>
+          <button class="qa-btn" data-panel="custom">
+            <span>✨</span><span>கோரிக்கை காண்</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ ORDERS PANEL ════════ -->
+    <div id="panel-orders" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">ஆர்டர்கள் நிர்வாகம்</h1>
+        <div class="panel-actions">
+          <select class="admin-select" id="orders-filter-type">
+            <option value="all">அனைத்து வகை</option>
+            <option value="flowers">🌸 பூக்கள்</option>
+            <option value="bouquets">💐 பூங்கொத்து</option>
+            <option value="weddingDecor">💒 திருமணம்</option>
+            <option value="customization">✨ தனிப்பயன்</option>
+          </select>
+          <select class="admin-select" id="orders-filter-status">
+            <option value="all">அனைத்து நிலை</option>
+            <option value="active">செயலில்</option>
+            <option value="completed">முடிந்தவை</option>
+          </select>
+        </div>
+      </div>
+      <div id="admin-orders-list"></div>
+    </div>
+
+    <!-- ════════ FLOWERS PANEL ════════ -->
+    <div id="panel-flowers" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">பூக்கள் நிர்வாகம்</h1>
+        <button class="btn-admin-add" id="add-flower-btn">+ புதிய பூ சேர்</button>
+      </div>
+      <div id="flowers-admin-list" class="admin-product-list"></div>
+    </div>
+
+    <!-- ════════ BOUQUETS PANEL ════════ -->
+    <div id="panel-bouquets" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">பூங்கொத்து நிர்வாகம்</h1>
+        <button class="btn-admin-add" id="add-bouquet-btn">+ புதிய பூங்கொத்து சேர்</button>
+      </div>
+      <div id="bouquets-admin-list" class="admin-product-list"></div>
+    </div>
+
+    <!-- ════════ WEDDING PANEL ════════ -->
+    <div id="panel-wedding" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">திருமண சேவை நிர்வாகம்</h1>
+        <button class="btn-admin-add" id="add-wedding-btn">+ புதிய சேவை சேர்</button>
+      </div>
+      <div id="wedding-admin-list" class="admin-product-list"></div>
+    </div>
+
+    <!-- ════════ CUSTOM REQUESTS PANEL ════════ -->
+    <div id="panel-custom" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">தனிப்பயன் கோரிக்கைகள்</h1>
+        <span class="panel-count" id="custom-req-count"></span>
+      </div>
+      <div id="custom-requests-list"></div>
+    </div>
+
+    <!-- ════════ SETTINGS PANEL ════════ -->
+    <div id="panel-settings" class="admin-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Settings</h1>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><h2 class="section-card-title">வழங்கல் நேர அமைவு</h2></div>
+        <p style="font-size:13px;color:var(--a-text-muted);margin-bottom:16px">ஒவ்வொரு வகைக்கும் இயல்புநிலை வழங்கல் நேரத்தை அமைக்கவும்.</p>
+        <div id="delivery-settings-form"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><h2 class="section-card-title">கடை தகவல்</h2></div>
+        <div id="shop-info-form"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><h2 class="section-card-title">தரவு நிர்வாகம்</h2></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn-danger" id="clear-orders-btn">🗑 அனைத்து ஆர்டர்களும் நீக்கு</button>
+          <button class="btn-ghost-admin" id="export-orders-btn">📥 ஆர்டர்கள் Export</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── ADMIN MODAL ── -->
+  <div class="admin-modal-overlay hidden" id="admin-modal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <h3 id="admin-modal-title">விவரங்கள்</h3>
+        <button class="admin-modal-close" id="admin-modal-close">✕</button>
+      </div>
+      <div class="admin-modal-body" id="admin-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ── TOAST ── -->
+  <div class="admin-toast hidden" id="admin-toast"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

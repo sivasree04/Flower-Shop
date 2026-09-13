@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ta" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0f0e17" />
+  <title>பூக்கள் | Pookal Wholesale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       ONBOARDING SCREEN (first visit only)
+  ═══════════════════════════════════════════════════ -->
+  <div id="onboarding-screen" class="onboarding-screen hidden">
+    <div class="onboarding-inner">
+      <div class="onboarding-flower">🌸</div>
+      <h1 class="onboarding-title" id="ob-title">பூக்கள் உலகிற்கு வரவேற்கிறோம்!</h1>
+      <p class="onboarding-sub" id="ob-sub">நேரடி தோட்டத்திலிருந்து புதிய பூக்கள்</p>
+
+      <div class="onboarding-form">
+        <!-- Name -->
+        <div class="ob-field">
+          <label class="ob-label" id="ob-name-label">உங்கள் பெயர்</label>
+          <input type="text" id="ob-name-input" class="ob-input"
+            placeholder="பெயர் உள்ளிடுங்கள்" autocomplete="given-name" />
+        </div>
+
+        <!-- Language selection -->
+        <div class="ob-field">
+          <label class="ob-label" id="ob-lang-label">மொழி தேர்வு செய்யுங்கள்</label>
+          <div class="lang-choice-row">
+            <button class="lang-choice-btn active" data-lang="ta" id="ob-btn-ta">
+              <span class="lc-flag">🌸</span>
+              <span class="lc-name">தமிழ்</span>
+              <span class="lc-sub">Tamil</span>
+            </button>
+            <button class="lang-choice-btn" data-lang="en" id="ob-btn-en">
+              <span class="lc-flag">🌿</span>
+              <span class="lc-name">English</span>
+              <span class="lc-sub">ஆங்கிலம்</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="ob-start-btn" id="ob-start-btn">தொடங்குவோம் →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen hidden">
+    <div class="loading-inner">
+      <div class="loading-flower">🌸</div>
+      <div class="loading-brand" id="loading-brand-name">பூக்கள்</div>
+      <div class="loading-sub">Wholesale Flowers</div>
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       MAIN APP WRAPPER
+  ═══════════════════════════════════════════════════ -->
+  <div id="app" class="app-wrapper hidden">
+
+    <!-- ─── TOP HEADER ─── -->
+    <header class="top-header" id="top-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <button class="icon-btn" id="menu-btn" aria-label="Menu">
+            <span class="hamburger"></span>
+          </button>
+          <div class="brand" id="home-btn">
+            <span class="brand-flower">🌸</span>
+            <div class="brand-text">
+              <span class="brand-name" id="header-brand-name">பூக்கள்</span>
+              <span class="brand-sub" id="header-brand-sub">Wholesale</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="icon-btn" id="search-toggle-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+          <!-- Language quick-toggle -->
+          <button class="lang-toggle-btn" id="lang-toggle-btn" aria-label="Switch language">
+            <span id="lang-toggle-label">EN</span>
+          </button>
+          <button class="cart-btn" id="cart-btn" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="cart-badge hidden" id="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bar-wrap hidden" id="search-bar-wrap">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" id="search-input" autocomplete="off" />
+          <button class="search-clear" id="search-clear" aria-label="Clear">✕</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─── SIDE DRAWER ─── -->
+    <aside class="side-drawer" id="side-drawer" aria-hidden="true">
+      <div class="drawer-overlay" id="drawer-overlay"></div>
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <span class="brand-flower">🌸</span>
+          <div>
+            <div class="drawer-brand-name" id="drawer-brand-name">பூக்கள் மொத்த விற்பனை</div>
+            <div class="drawer-brand-sub" id="drawer-greeting">Pookal Wholesale</div>
+          </div>
+          <button class="drawer-close" id="drawer-close" aria-label="Close">✕</button>
+        </div>
+        <nav class="drawer-nav" id="drawer-nav">
+          <a class="drawer-link active" data-view="home"         href="#" id="dnav-home">🏠 முகப்பு</a>
+          <a class="drawer-link"        data-view="flowers"      href="#" id="dnav-flowers">🌸 மலர்கள்</a>
+          <a class="drawer-link"        data-view="bouquets"     href="#" id="dnav-bouquets">💐 பூங்கொத்துகள்</a>
+          <a class="drawer-link"        data-view="weddingDecor" href="#" id="dnav-wedding">💒 திருமண அலங்காரம்</a>
+          <a class="drawer-link"        data-view="customization" href="#" id="dnav-custom">✨ தனிப்பயன் ஆர்டர்</a>
+          <a class="drawer-link"        data-view="orders"       href="#" id="dnav-orders">📦 என் ஆர்டர்கள்</a>
+          <a class="drawer-link"        data-view="settings"     href="#" id="dnav-settings">⚙️ அமைப்புகள்</a>
+          <hr class="drawer-sep" />
+          <a class="drawer-link" href="admin.html">🛠 Admin Dashboard</a>
+        </nav>
+        <div class="drawer-contact">
+          <div class="drawer-contact-title" id="drawer-contact-title">தொடர்பு</div>
+          <a class="drawer-contact-link" href="tel:+919876543210">📞 +91 98765 43210</a>
+          <a class="drawer-contact-link" href="https://wa.me/919876543210" target="_blank">💬 WhatsApp</a>
+          <div class="drawer-hours" id="drawer-hours">திறந்திருக்கும் நேரம்: 05:00 – 21:00</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- ══ HOME VIEW ══ -->
+      <section id="view-home" class="view active-view">
+
+        <div class="hero-banner">
+          <div class="hero-bg"></div>
+          <div class="hero-content">
+            <div class="hero-badge" id="hero-badge">🌿 நேரடி தோட்டத்திலிருந்து</div>
+            <h1 class="hero-title" id="hero-title">தாஜா பூக்கள்<br/>சிறந்த விலையில்</h1>
+            <p class="hero-sub" id="hero-sub">மொத்த விற்பனை · திருமண அலங்காரம் · தனிப்பயன் கோரிக்கை</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" data-view="flowers" id="hero-cta1">மலர்கள் வாங்க</button>
+              <button class="btn btn-outline" data-view="weddingDecor" id="hero-cta2">திருமண சேவை</button>
+            </div>
+          </div>
+          <div class="hero-floats">
+            <span class="float-emoji f1">🌹</span>
+            <span class="float-emoji f2">🌸</span>
+            <span class="float-emoji f3">💐</span>
+            <span class="float-emoji f4">🌺</span>
+          </div>
+        </div>
+
+        <div class="delivery-banner">
+          <div class="delivery-item"><span>⚡</span><span id="del-fast">1 மணி நேரத்தில்</span></div>
+          <div class="delivery-divider"></div>
+          <div class="delivery-item"><span>🌿</span><span id="del-fresh">புதிய பூக்கள்</span></div>
+          <div class="delivery-divider"></div>
+          <div class="delivery-item"><span>🏷️</span><span id="del-price">மொத்த விலை</span></div>
+        </div>
+
+        <!-- Category Cards — single instance, no duplicate -->
+        <div class="section-header">
+          <h2 class="section-title" id="home-cat-title">என்ன தேவை?</h2>
+          <p class="section-sub" id="home-cat-sub">வகை தேர்ந்தெடுங்கள்</p>
+        </div>
+        <div class="category-grid" id="category-grid">
+          <button class="category-card" data-view="flowers">
+            <div class="cat-img-wrap">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80" alt="Flowers" loading="lazy" />
+              <div class="cat-overlay"></div>
+            </div>
+            <div class="cat-body">
+              <span class="cat-emoji">🌸</span>
+              <div class="cat-name" id="cat-flowers-name">மலர்கள்</div>
+              <div class="cat-count" id="cat-flowers-count">12 வகைகள்</div>
+            </div>
+          </button>
+          <button class="category-card" data-view="bouquets">
+            <div class="cat-img-wrap">
+              <img src="https://images.unsplash.com/photo-1487530811015-780c972a428c?w=300&q=80" alt="Bouquets" loading="lazy" />
+              <div class="cat-overlay"></div>
+            </div>
+            <div class="cat-body">
+              <span class="cat-emoji">💐</span>
+              <div class="cat-name" id="cat-bouquets-name">பூங்கொத்துகள்</div>
+              <div class="cat-count" id="cat-bouquets-count">7 வகைகள்</div>
+            </div>
+          </button>
+          <button class="category-card" data-view="weddingDecor">
+            <div class="cat-img-wrap">
+              <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=300&q=80" alt="Wedding Decor" loading="lazy" />
+              <div class="cat-overlay"></div>
+            </div>
+            <div class="cat-body">
+              <span class="cat-emoji">💒</span>
+              <div class="cat-name" id="cat-wedding-name">திருமண அலங்காரம்</div>
+              <div class="cat-count" id="cat-wedding-count">7 சேவைகள்</div>
+            </div>
+          </button>
+          <button class="category-card" data-view="customization">
+            <div class="cat-img-wrap">
+              <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=300&q=80" alt="Customization" loading="lazy" />
+              <div class="cat-overlay"></div>
+            </div>
+            <div class="cat-body">
+              <span class="cat-emoji">✨</span>
+              <div class="cat-name" id="cat-custom-name">தனிப்பயன் ஆர்டர்</div>
+              <div class="cat-count" id="cat-custom-count">உங்கள் விருப்பம்</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Featured Products -->
+        <div class="section-header">
+          <h2 class="section-title" id="home-featured-title">இன்றைய சிறப்பு</h2>
+          <button class="see-all-btn" data-view="flowers" id="home-see-all">அனைத்தும் →</button>
+        </div>
+        <div class="featured-scroll" id="featured-products"></div>
+
+        <!-- Why Us -->
+        <div class="why-us">
+          <div class="section-header"><h2 class="section-title" id="why-title">ஏன் பூக்கள்?</h2></div>
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-icon">🌿</div>
+              <div class="why-title" id="why-farm">நேரடி தோட்டம்</div>
+              <div class="why-text" id="why-farm-text">தோட்டத்திலிருந்து நேரடியாக. இடைத்தரகர் இல்லை.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">⚡</div>
+              <div class="why-title" id="why-fast">விரைவான வழங்கல்</div>
+              <div class="why-text" id="why-fast-text">1 மணி நேரத்தில் புதிய பூக்கள் உங்கள் வீட்டிற்கு.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🏷️</div>
+              <div class="why-title" id="why-price">மொத்த விலை</div>
+              <div class="why-text" id="why-price-text">சில்லறை விலையில் பாதி விலையில் மொத்தமாக வாங்குங்கள்.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">💒</div>
+              <div class="why-title" id="why-wedding">திருமண நிபுணர்கள்</div>
+              <div class="why-text" id="why-wedding-text">10+ வருட திருமண அலங்கார அனுபவம்.</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ══ FLOWERS VIEW ══ -->
+      <section id="view-flowers" class="view">
+        <div class="category-header flowers-header">
+          <button class="back-btn" data-view="home" id="flowers-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>🌸</span>
+            <div>
+              <div class="cat-h-name" id="flowers-view-title">மலர்கள்</div>
+              <div class="cat-h-sub" id="flowers-view-sub">Flowers · மொத்த விற்பனை</div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-bar" id="flower-filter-bar">
+          <button class="filter-chip active" data-filter="all"       id="ff-all">அனைத்தும்</button>
+          <button class="filter-chip"        data-filter="available" id="ff-avail">கிடைக்கும்</button>
+          <button class="filter-chip"        data-filter="popular"   id="ff-pop">பிரபலம்</button>
+          <button class="filter-chip"        data-filter="premium"   id="ff-prem">Premium</button>
+        </div>
+        <div class="products-grid" id="flowers-grid"></div>
+      </section>
+
+      <!-- ══ BOUQUETS VIEW ══ -->
+      <section id="view-bouquets" class="view">
+        <div class="category-header bouquets-header">
+          <button class="back-btn" data-view="home" id="bouquets-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>💐</span>
+            <div>
+              <div class="cat-h-name" id="bouquets-view-title">பூங்கொத்துகள்</div>
+              <div class="cat-h-sub" id="bouquets-view-sub">Bouquets · அனைத்து சந்தர்ப்பங்களுக்கும்</div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-bar" id="bouquet-filter-bar">
+          <button class="filter-chip active" data-filter="all"      id="bf-all">அனைத்தும்</button>
+          <button class="filter-chip"        data-filter="sameday"  id="bf-same">இன்றே</button>
+          <button class="filter-chip"        data-filter="gift"     id="bf-gift">Gift</button>
+          <button class="filter-chip"        data-filter="romantic" id="bf-rom">Romantic</button>
+        </div>
+        <div class="products-grid" id="bouquets-grid"></div>
+      </section>
+
+      <!-- ══ WEDDING DECOR VIEW ══ -->
+      <section id="view-weddingDecor" class="view">
+        <div class="category-header wedding-header">
+          <button class="back-btn" data-view="home" id="wedding-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>💒</span>
+            <div>
+              <div class="cat-h-name" id="wedding-view-title">திருமண அலங்காரம்</div>
+              <div class="cat-h-sub" id="wedding-view-sub">Wedding Decor · விலை கோரிக்கை</div>
+            </div>
+          </div>
+        </div>
+        <div class="wedding-banner"><p id="wedding-banner-text">💡 விலைகள் நிகழ்வின் அளவு மற்றும் தேவைகளின் படி மாறும். விலை கோரிக்கை இலவசம்.</p></div>
+        <div class="products-grid" id="wedding-grid"></div>
+      </section>
+
+      <!-- ══ CUSTOMIZATION VIEW ══ -->
+      <section id="view-customization" class="view">
+        <div class="category-header custom-header">
+          <button class="back-btn" data-view="home" id="custom-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>✨</span>
+            <div>
+              <div class="cat-h-name" id="custom-view-title">தனிப்பயன் ஆர்டர்</div>
+              <div class="cat-h-sub" id="custom-view-sub">Customization · உங்கள் விருப்பம்</div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-form-wrap">
+          <div class="custom-intro"><p id="custom-intro-text">உங்களுக்கு என்ன வேண்டும் என்று சொல்லுங்கள். நாங்கள் உங்களுக்கு சிறந்த மாதிரி தயாரித்து விலை தெரிவிக்கிறோம்.</p></div>
+
+          <form id="customization-form" class="custom-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" id="lbl-custom-type">கோரிக்கை வகை <span class="req">*</span></label>
+              <div class="type-chips" id="custom-type-chips"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custom-requirement" id="lbl-custom-req">உங்கள் தேவை விவரம் <span class="req">*</span></label>
+              <textarea id="custom-requirement" class="form-textarea" rows="4" maxlength="500"></textarea>
+              <div class="char-count"><span id="req-char-count">0</span>/500</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" id="lbl-flower-select">பூ தேர்வு</label>
+              <div class="multi-select-chips" id="flower-select-chips"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" id="lbl-color-select">நிற தேர்வு</label>
+              <div class="color-select-row" id="color-select-chips"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custom-budget" id="lbl-budget">பட்ஜெட் (₹) <span class="req">*</span></label>
+              <input type="number" id="custom-budget" class="form-input" min="100" />
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label class="form-label" for="custom-date" id="lbl-date">நிகழ்வு / வழங்கல் தேதி <span class="req">*</span></label>
+                <input type="date" id="custom-date" class="form-input" />
+              </div>
+              <div class="form-group half">
+                <label class="form-label" for="custom-time" id="lbl-time">விரும்பிய நேரம்</label>
+                <input type="time" id="custom-time" class="form-input" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custom-location" id="lbl-location">இடம் / முகவரி <span class="req">*</span></label>
+              <input type="text" id="custom-location" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" id="lbl-image">மாதிரி படம் (விரும்பினால்)</label>
+              <div class="upload-area" id="upload-area">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text" id="upload-text">படத்தை தேர்ந்தெடுங்கள் அல்லது இழுத்து விடுங்கள்</div>
+                <div class="upload-sub" id="upload-sub">PNG, JPG · அதிகபட்சம் 5MB</div>
+                <input type="file" id="custom-image" accept="image/*" multiple class="file-input" />
+              </div>
+              <div class="image-preview-row" id="image-preview-row"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custom-notes" id="lbl-notes">கூடுதல் குறிப்புகள்</label>
+              <textarea id="custom-notes" class="form-textarea" rows="3"></textarea>
+            </div>
+            <div class="form-section-title" id="custom-your-info">உங்கள் தகவல்</div>
+            <div class="form-group">
+              <label class="form-label" for="custom-name" id="lbl-cname">பெயர் <span class="req">*</span></label>
+              <input type="text" id="custom-name" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custom-phone" id="lbl-cphone">மொபைல் எண் <span class="req">*</span></label>
+              <input type="tel" id="custom-phone" class="form-input" placeholder="9876543210" maxlength="10" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="custom-submit-btn">✨ கோரிக்கையை அனுப்பு</button>
+          </form>
+
+          <div class="custom-success hidden" id="custom-success">
+            <div class="success-icon">🌸</div>
+            <h2 class="success-title" id="custom-success-title">கோரிக்கை பெறப்பட்டது!</h2>
+            <p class="success-msg" id="custom-success-msg">உங்கள் தனிப்பயன் கோரிக்கை வெற்றிகரமாக பதிவு செய்யப்பட்டது. 24 மணி நேரத்தில் நாங்கள் தொடர்பு கொள்கிறோம்.</p>
+            <div class="success-order-id" id="custom-order-id"></div>
+            <button class="btn btn-primary" data-view="home" id="custom-success-back">முகப்பிற்கு திரும்பு</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CART VIEW ══ -->
+      <section id="view-cart" class="view">
+        <div class="category-header cart-header">
+          <button class="back-btn" id="cart-back-btn">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>🛒</span>
+            <div>
+              <div class="cat-h-name" id="cart-view-title">கூடை</div>
+              <div class="cat-h-sub">Cart</div>
+            </div>
+          </div>
+        </div>
+        <div id="cart-content"></div>
+      </section>
+
+      <!-- ══ CHECKOUT VIEW ══ -->
+      <section id="view-checkout" class="view">
+        <div class="category-header">
+          <button class="back-btn" data-view="cart" id="checkout-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>📋</span>
+            <div>
+              <div class="cat-h-name" id="checkout-view-title">செக்அவுட்</div>
+              <div class="cat-h-sub">Checkout</div>
+            </div>
+          </div>
+        </div>
+        <div id="checkout-content"></div>
+      </section>
+
+      <!-- ══ ORDER SUCCESS VIEW ══ -->
+      <section id="view-order-success" class="view">
+        <div id="order-success-content"></div>
+      </section>
+
+      <!-- ══ ORDER TRACKING VIEW ══ -->
+      <section id="view-orders" class="view">
+        <div class="category-header">
+          <button class="back-btn" data-view="home" id="orders-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>📦</span>
+            <div>
+              <div class="cat-h-name" id="orders-view-title">என் ஆர்டர்கள்</div>
+              <div class="cat-h-sub" id="orders-view-sub">My Orders</div>
+            </div>
+          </div>
+        </div>
+        <div id="orders-content"></div>
+      </section>
+
+      <!-- ══ SEARCH RESULTS VIEW ══ -->
+      <section id="view-search" class="view">
+        <div class="category-header">
+          <button class="back-btn" data-view="home" id="search-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>🔍</span>
+            <div>
+              <div class="cat-h-name" id="search-view-title">தேடல் முடிவுகள்</div>
+              <div class="cat-h-sub" id="search-results-label">Search Results</div>
+            </div>
+          </div>
+        </div>
+        <div class="products-grid" id="search-results-grid"></div>
+      </section>
+
+      <!-- ══ SETTINGS VIEW ══ -->
+      <section id="view-settings" class="view">
+        <div class="category-header">
+          <button class="back-btn" data-view="home" id="settings-back">← திரும்பு</button>
+          <div class="cat-header-title">
+            <span>⚙️</span>
+            <div>
+              <div class="cat-h-name" id="settings-view-title">அமைப்புகள்</div>
+              <div class="cat-h-sub">Settings</div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-wrap">
+
+          <!-- User greeting -->
+          <div class="settings-greeting-card" id="settings-greeting-card">
+            <div class="sg-emoji">👋</div>
+            <div>
+              <div class="sg-hello" id="sg-hello">வணக்கம்</div>
+              <div class="sg-name" id="sg-name-display">நண்பர்!</div>
+            </div>
+          </div>
+
+          <!-- Change Name -->
+          <div class="settings-section">
+            <div class="settings-section-title" id="set-name-title">உங்கள் பெயர் மாற்று</div>
+            <div class="settings-row">
+              <input type="text" id="settings-name-input" class="form-input"
+                placeholder="உங்கள் பெயர்" />
+              <button class="btn btn-primary btn-sm" id="settings-name-save">✓ சேமி</button>
+            </div>
+          </div>
+
+          <!-- Language -->
+          <div class="settings-section">
+            <div class="settings-section-title" id="set-lang-title">மொழி</div>
+            <div class="lang-choice-row">
+              <button class="lang-choice-btn" data-lang="ta" id="set-btn-ta">
+                <span class="lc-flag">🌸</span>
+                <span class="lc-name">தமிழ்</span>
+                <span class="lc-sub">Tamil</span>
+              </button>
+              <button class="lang-choice-btn" data-lang="en" id="set-btn-en">
+                <span class="lc-flag">🌿</span>
+                <span class="lc-name">English</span>
+                <span class="lc-sub">ஆங்கிலம்</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="settings-section">
+            <div class="settings-section-title" id="set-theme-title">தோற்றம்</div>
+            <div class="theme-choice-row">
+              <button class="theme-choice-btn" data-theme="dark" id="set-btn-dark">
+                <span>🌙</span>
+                <span id="theme-dark-label">இருண்ட தோற்றம்</span>
+              </button>
+              <button class="theme-choice-btn" data-theme="light" id="set-btn-light">
+                <span>☀️</span>
+                <span id="theme-light-label">வெளிர் தோற்றம்</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- App info -->
+          <div class="settings-section">
+            <div class="settings-section-title" id="set-info-title">செயலி பற்றி</div>
+            <div class="settings-info-card">
+              <div class="si-row"><span>🌸 பூக்கள்</span><span id="set-version">பதிப்பு 1.0</span></div>
+              <div class="si-row"><span id="set-contact-label">தொடர்பு</span><a href="tel:+919876543210">📞 +91 98765 43210</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ WEDDING BOOKING MODAL ══ -->
+      <div class="modal-overlay hidden" id="wedding-booking-modal">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title" id="wedding-modal-title">விலை கோரிக்கை</h3>
+            <button class="modal-close" id="wedding-modal-close">✕</button>
+          </div>
+          <div class="modal-body" id="wedding-modal-body"></div>
+        </div>
+      </div>
+
+      <!-- ══ PRODUCT DETAIL MODAL ══ -->
+      <div class="modal-overlay hidden" id="product-modal">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title" id="product-modal-title">விவரங்கள்</h3>
+            <button class="modal-close" id="product-modal-close">✕</button>
+          </div>
+          <div class="modal-body" id="product-modal-body"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ─── BOTTOM NAV ─── -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="bnav-btn active" data-view="home" aria-label="Home">
+        <span class="bnav-icon">🏠</span>
+        <span class="bnav-label" id="bnav-home">முகப்பு</span>
+      </button>
+      <button class="bnav-btn" data-view="flowers" aria-label="Flowers">
+        <span class="bnav-icon">🌸</span>
+        <span class="bnav-label" id="bnav-flowers">மலர்கள்</span>
+      </button>
+      <button class="bnav-btn" data-view="bouquets" aria-label="Bouquets">
+        <span class="bnav-icon">💐</span>
+        <span class="bnav-label" id="bnav-bouquets">பூங்கொத்து</span>
+      </button>
+      <button class="bnav-btn" data-view="weddingDecor" aria-label="Wedding">
+        <span class="bnav-icon">💒</span>
+        <span class="bnav-label" id="bnav-wedding">திருமணம்</span>
+      </button>
+      <button class="bnav-btn" data-view="cart" aria-label="Cart">
+        <span class="bnav-icon cart-bnav-icon">
+          🛒
+          <span class="cart-badge-nav hidden" id="cart-count-nav">0</span>
+        </span>
+        <span class="bnav-label" id="bnav-cart">கூடை</span>
+      </button>
+    </nav>
+
+    <!-- ─── TOAST ─── -->
+    <div class="toast hidden" id="toast"><span id="toast-msg"></span></div>
+
+  </div><!-- /app-wrapper -->
+
+  <!-- Scripts: i18n first, then data, cart, orders, app -->
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
